@@ -1,0 +1,30 @@
+.decimal-input .readout {
+  width: calc(100% - 74px);
+}
+
+.decimal-input .buttons {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto auto auto auto;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+}
+
+.next-button, .back-button {
+  position: absolute;
+  bottom: 10px;
+}
+
+.back-button {
+  left: 20px;
+}
+
+.next-button {
+  right: 20px;
+}
+
+.clear {
+  width: 64px;
+  margin-left: 10px;
+}
