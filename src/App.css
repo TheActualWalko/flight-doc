@@ -91,10 +91,15 @@ input:focus+.border-svg path {
   overflow: hidden;
   position: relative;
   margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  width: 100%;
 }
 
 .number-input input {
-  width: calc(100% - 94px);
+  height: 100%;
+  width: calc(100% + 1px);
   font: inherit;
   color: white;
   vertical-align: middle;
@@ -102,9 +107,11 @@ input:focus+.border-svg path {
   background-color: transparent;
   border: none;
   text-align: right;
-  padding: 0 20px;
+  padding: 15px 20px;
   position: relative;
   z-index: 2;
+  grid-column-start: 1;
+  grid-column-end: 3;
 }
 
 .number-input .border-svg path {
@@ -114,11 +121,28 @@ input:focus+.border-svg path {
 
 .number-input button {
   font-size: 17px;
-  border-left: 1px solid rgba(255,255,255,0.15);
-  padding-left: 23px;
-  padding-right: 0px;
-  position: relative;
+  padding-left: 15px;
+  padding-right: 11px;
   z-index: 2;
+  width: 100%;
+  margin-left: 1px;
+  grid-column-start: 3;
+  grid-column-end: 4;
+}
+
+.number-input button .border-svg {
+  margin-left: -1px;
+}
+
+.number-input button:active {
+  margin-left: 0;
+  width: 100%;
+  padding-left: 16px;
+  padding-right: 10px;
+}
+
+.number-input button:active .border-svg {
+  margin-left: 0;
 }
 
 .number-input input[type=number]::-webkit-inner-spin-button,
