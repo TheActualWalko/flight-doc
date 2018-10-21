@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setHobbsStop } from './actions';
+import { setHobbsStart, setHobbsStop, setTimeUp, setTimeDown, next, prev } from './actions';
 import './App.css';
 import HobbsInput from './HobbsInput';
+import TimeInput from './TimeInput';
 import Button from './Button';
+import { canGoToPage, getNextPage } from './pages';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      number: '',
-      inputFocused: false
-    };
-  }
   render() {
     return (
       <div className="app">
@@ -24,17 +19,34 @@ class App extends Component {
             </linearGradient>
           </defs>
         </svg>
-        <HobbsInput
-          value={this.props.hobbsStop}
-          onChange={this.props.setHobbsStop}
-        />
+        {this.props.page === 'HOBBS_START' && <HobbsInput value={this.props.hobbsStart} onChange={this.props.setHobbsStart} />}
+        {this.props.page === 'TIME_UP' && <TimeInput value={this.props.timeUp} onChange={this.props.setTimeUp} onContinue={this.props.next} />}
+        {this.props.page === 'TIME_DOWN' && <TimeInput value={this.props.timeDown} onChange={this.props.setTimeDown} onContinue={this.props.next} />}
+        {this.props.page === 'HOBBS_STOP' && <HobbsInput value={this.props.hobbsStop} onChange={this.props.setHobbsStop} />}
         <footer>
-          <Button topRight>Back</Button>
-          <Button topLeft className="highlight">Next</Button>
+          <Button onClick={this.props.prev} topRight>Back</Button>
+          <Button onClick={this.props.next} topLeft disabled={!this.props.canGoToNext} className={this.props.canGoToNext ? 'highlight' : 'disabled'}>Next</Button>
         </footer>
       </div>
     );
   }
 }
 
-export default connect(({ hobbsStop }) => ({ hobbsStop }), (dispatch) => ({ setHobbsStop: (hobbsStop) => dispatch(setHobbsStop(hobbsStop)) }))(App);
+export default connect(
+  (state) => ({
+    hobbsStart: state.hobbsStart,
+    hobbsStop: state.hobbsStop,
+    timeUp: state.timeUp,
+    timeDown: state.timeDown,
+    page: state.page,
+    canGoToNext: canGoToPage(state, getNextPage(state))
+  }),
+  (dispatch) => ({
+    setHobbsStart: (hobbsStart) => dispatch(setHobbsStart(hobbsStart)),
+    setHobbsStop: (hobbsStop) => dispatch(setHobbsStop(hobbsStop)),
+    setTimeUp: (hobbsStart) => dispatch(setTimeUp(hobbsStart)),
+    setTimeDown: (hobbsStop) => dispatch(setTimeDown(hobbsStop)),
+    next: () => dispatch(next()),
+    prev: () => dispatch(prev())
+  })
+)(App);

@@ -1,5 +1,7 @@
 .app {
-  padding: 5px 10px;
+  padding: 20px 20px 80px 20px;
+  color: white;
+  height: 100%;
 }
 
 .app h3 {
@@ -16,7 +18,7 @@
   vertical-align: middle;
   padding: 13px;
   background-color: #ddd;
-  height: 65px;
+  min-height: 65px;
   display: inline-block;
   min-width: 57px;
   border: none;
@@ -26,14 +28,23 @@
   position: relative;
   background-color: transparent;
   overflow: hidden;
-  color: white;
+  color: inherit;
   font-size: 18px;
   letter-spacing: 7.5px;
   padding: 13px 10px 13px 16px;
   text-transform: uppercase;
 }
 
+.hobbs-input {
+  display: grid;
+  grid-template-rows: 65px auto;
+  height: 100%;
+  row-gap: 20px;
+}
+
 .digits {
+  height: 100%;
+  width: 100%;
   display: grid;
   grid-template-rows: 1fr 1fr 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr;
@@ -66,13 +77,24 @@ button:focus {
   outline: none;
 }
 
+button.disabled {
+  color: rgba(255,255,255, 0.3);
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(255,255,255,0),
+    rgba(255,255,255,0) 8px,
+    rgba(255,255,255,0.15) 8px,
+    rgba(255,255,255,0.15) 16px
+  );
+}
+
 .highlight .border-svg path {
   stroke: #4A90E2;
   fill: url(#button-highlight-gradient);
   opacity: 1;
 }
 
-button:active .border-svg path,
+button:not(:disabled):active .border-svg path,
 input:focus+.border-svg path {
   stroke: #fff;
   opacity: 1;
@@ -95,10 +117,71 @@ input:focus+.border-svg path {
   float: right;
 }
 
+.time-now {
+  display: grid;
+  grid-template-rows: 1fr 77px 147px 1fr;
+  row-gap: 20px;
+  height: 100%;
+}
+
+.time-now .time-manual {
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+
+.time-now .time-continue {
+  grid-row-start: 3;
+  grid-row-end: 4;
+}
+
+.time-now button {
+  letter-spacing: 0;
+  padding: 13px;
+  text-transform: none;
+  font-size: 20px;
+}
+
+.time-now strong {
+  display: block;
+  font-size: 80px;
+  line-height: 70px;
+  margin-top: 10px;
+}
+
+.time-input {
+  display: grid;
+  max-width: 270px;
+  height: 100%;
+  margin: 0 auto;
+  grid-template-columns: 1fr 10px 1fr;
+  grid-template-rows: 1fr 60px 1fr;
+  row-gap: 10px;
+  column-gap: 6px;
+}
+
+.time-input button {
+  letter-spacing: 0;
+  padding: 13px;
+}
+
+.time-component, .time-colon {
+  position: relative;
+  vertical-align: middle;
+  font-size: 48px;
+  text-align: center;
+}
+
+.time-component {
+  padding-top: 3px;
+}
+
+.time-colon {
+  bottom: 5px;
+}
+
 .number-input {
   overflow: hidden;
   position: relative;
-  margin-bottom: 20px;
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-template-rows: auto;
@@ -109,7 +192,7 @@ input:focus+.border-svg path {
   height: 100%;
   width: calc(100% + 1px);
   font: inherit;
-  color: white;
+  color: inherit;
   vertical-align: middle;
   font-size: 30px;
   background-color: transparent;
@@ -120,9 +203,10 @@ input:focus+.border-svg path {
   z-index: 2;
 }
 
-.number-input .border-svg path {
+.number-input .border-svg path,
+.time-component .border-svg path {
   fill: #000;
-  opacity: 0.15;
+  opacity: 0.12;
 }
 
 .number-input button {

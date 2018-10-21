@@ -53,7 +53,7 @@ class HobbsInput extends Component {
         <div className="digits">
           {[1,2,3,4,5,6,7,8,9,null,0,'.'].map(
             (digit, index) => digit === null
-              ? <button key={`spacer-${index}`} disabled style={{visibility: 'hidden'}}/>
+              ? <div key={`spacer-${index}`} style={{visibility: 'hidden'}}/>
               : <Button key={digit} onClick={() => this.appendDigit(digit)} {...corners[index]}>{digit}</Button>
           )}
         </div>

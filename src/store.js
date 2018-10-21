@@ -1,10 +1,12 @@
 import { createStore } from 'redux';
+import { canGoToPage, getNextPage, getPrevPage } from './pages';
 
 const initialState = {
-  hobbsStart: '',
+  hobbsStart: '55.9',
   hobbsStop: '',
   timeUp: '',
   timeDown: '',
+  page: 'TIME_UP'
 };
 
 const rootReducer = (state, {type, payload}) => {
@@ -20,6 +22,20 @@ const rootReducer = (state, {type, payload}) => {
     }
     case 'SET_TIME_DOWN': {
       return {...state, timeDown: payload}
+    }
+    case 'NEXT': {
+      const nextPage = getNextPage(state);
+      return {
+        ...state,
+        page: canGoToPage(state, nextPage) ? nextPage : state.page
+      };
+    }
+    case 'PREV': {
+      const prevPage = getPrevPage(state);
+      return {
+        ...state,
+        page: canGoToPage(state, prevPage) ? prevPage : state.page
+      };
     }
     default: {
       return state;

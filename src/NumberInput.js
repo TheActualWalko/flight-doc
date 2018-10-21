@@ -22,8 +22,7 @@ class NumberInput extends Component {
           onBlur={() => setTimeout(() => hadFocus = false)}
           ref={(el) => this.inputRef = el}
         />
-        <svg className='border-svg'>
-        </svg>
+        <svg className='border-svg' />
         <Button
           onClick={() => {
             onChange('');
