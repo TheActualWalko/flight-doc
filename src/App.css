@@ -33,6 +33,14 @@
   text-transform: uppercase;
 }
 
+.digits {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 5px;
+  row-gap: 5px;
+}
+
 .digits button {
   font-size: 36px;
   padding: 12px 10px 14px 16px;
@@ -92,7 +100,7 @@ input:focus+.border-svg path {
   position: relative;
   margin-bottom: 20px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr;
   grid-template-rows: auto;
   width: 100%;
 }
@@ -110,8 +118,6 @@ input:focus+.border-svg path {
   padding: 15px 20px;
   position: relative;
   z-index: 2;
-  grid-column-start: 1;
-  grid-column-end: 3;
 }
 
 .number-input .border-svg path {
@@ -126,8 +132,6 @@ input:focus+.border-svg path {
   z-index: 2;
   width: 100%;
   margin-left: 1px;
-  grid-column-start: 3;
-  grid-column-end: 4;
 }
 
 .number-input button .border-svg {

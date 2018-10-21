@@ -10,15 +10,15 @@ class NumberInput extends Component {
     return this.isFocused() ? 'number' : 'text';
   }
   render() {
-    const {onChange, val, topLeft, topRight, bottomLeft, bottomRight} = this.props;
+    const {onChange, value, topLeft, topRight, bottomLeft, bottomRight} = this.props;
     let hadFocus = this.isFocused();
     return (
       <div className='number-input' ref={(div) => div && this.inputRef && addSVG(div, {topLeft, bottomLeft}, this.inputRef)}>
         <input
           type={this.getType()}
-          value={val}
-          onChange={(e) => onChange(e.target.value)}
-          onFocus={() => onChange(val.endsWith('.') ? '' : val)}
+          value={value}
+          onChange={(e) => /^\d*\.?\d?$/.test(e.target.value) && onChange(e.target.value)}
+          onFocus={() => onChange(value.endsWith('.') ? '' : value)}
           onBlur={() => setTimeout(() => hadFocus = false)}
           ref={(el) => this.inputRef = el}
         />
