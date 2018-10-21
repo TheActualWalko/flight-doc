@@ -10,7 +10,7 @@
   text-align: center;
 }
 
-.app .input, .app .readout, .app button{
+.app .input, .app .readout, .app button {
   font-family: inherit;
   font-size: 24px;
   vertical-align: middle;
@@ -22,7 +22,111 @@
   border: none;
 }
 
+.app button {
+  position: relative;
+  background-color: transparent;
+  overflow: hidden;
+  color: white;
+  font-size: 18px;
+  letter-spacing: 7.5px;
+  padding: 13px 10px 13px 16px;
+  text-transform: uppercase;
+}
+
+.digits button {
+  font-size: 36px;
+  padding: 12px 10px 14px 16px;
+}
+
+.border-svg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.border-svg path {
+  stroke: white;
+  opacity: 0.3;
+  fill: transparent;
+}
+
 button:focus {
-  outline-width: 0;
-  box-shadow: 0 0 4px blue;
+  outline: none;
+}
+
+.highlight .border-svg path {
+  stroke: #4A90E2;
+  fill: url(#button-highlight-gradient);
+  opacity: 1;
+}
+
+button:active .border-svg path,
+input:focus+.border-svg path {
+  stroke: #fff;
+  opacity: 1;
+  fill: rgba(255,255,255,0.2);
+}
+
+.app footer {
+  position: fixed;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+}
+
+.app footer button {
+  width: 150px;
+  float: left;
+}
+
+.app footer button:last-of-type {
+  float: right;
+}
+
+.number-input {
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.number-input input {
+  width: calc(100% - 94px);
+  font: inherit;
+  color: white;
+  vertical-align: middle;
+  font-size: 30px;
+  background-color: transparent;
+  border: none;
+  text-align: right;
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.number-input .border-svg path {
+  fill: #000;
+  opacity: 0.15;
+}
+
+.number-input button {
+  font-size: 17px;
+  border-left: 1px solid rgba(255,255,255,0.15);
+  padding-left: 23px;
+  padding-right: 0px;
+  position: relative;
+  z-index: 2;
+}
+
+.number-input input[type=number]::-webkit-inner-spin-button,
+.number-input input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.number-input input:focus {
+  outline: none;
 }
