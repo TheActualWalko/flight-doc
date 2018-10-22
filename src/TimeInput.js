@@ -12,7 +12,9 @@ const TimeReadout = ({time}) => (
 );
 const getNow = () => {
   const now = new Date();
-  return now.getHours() + ':' + now.getMinutes();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  return `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
 }
 
 class CurrentTime extends Component {
@@ -47,7 +49,7 @@ class TimeInput extends Component {
   modTime(amount) {
     const minutes = (this.getMinutes() + 60 + amount) % 60;
     const hours = (this.getHours() + 24 + Math.floor((this.getMinutes() + amount) / 60)) % 24;
-    this.props.onChange(hours + ':' + minutes);
+    this.props.onChange(`${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}`);
   }
   render() {
     return this.props.value

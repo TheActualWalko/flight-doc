@@ -1,5 +1,6 @@
 import { createStore } from 'redux';
 import { canGoToPage, getNextPage, getPrevPage } from './pages';
+import { getDeltaHours } from './tools';
 
 const initialState = {
   hobbsStart: '55.9',
@@ -12,7 +13,7 @@ const initialState = {
 const rootReducer = (state, {type, payload}) => {
   switch(type) {
     case 'SET_HOBBS_START': {
-      return {...state, hobbsStart: payload}
+      return { ...state, hobbsStart: payload}
     }
     case 'SET_HOBBS_STOP': {
       return {...state, hobbsStop: payload}
@@ -21,7 +22,11 @@ const rootReducer = (state, {type, payload}) => {
       return {...state, timeUp: payload}
     }
     case 'SET_TIME_DOWN': {
-      return {...state, timeDown: payload}
+      return {
+        ...state,
+        timeDown: payload,
+        hobbsStop: state.hobbsStop === '' ? (Number(state.hobbsStart) + getDeltaHours(state.timeUp, payload) + 0.2).toFixed(1) : state.hobbsStop
+      }
     }
     case 'NEXT': {
       const nextPage = getNextPage(state);

@@ -25,13 +25,13 @@ class NumberInput extends Component {
         <svg className='border-svg' />
         <Button
           onClick={() => {
-            onChange('');
+            onChange(value.slice(0,-1));
             if (hadFocus) setTimeout(() => this.inputRef.focus(), 0);
           }}
           topRight={topRight}
           bottomRight={bottomRight}
         >
-          Clr
+          Del
         </Button>
       </div>
     );

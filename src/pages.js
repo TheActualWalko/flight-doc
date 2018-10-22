@@ -14,7 +14,7 @@ export const canGoToPage = (state, page) => {
   if (page === 'TIME_DOWN' && !!state.timeUp) {
     return true;
   }
-  if (page === 'HOBBS_STOP' && !!state.timeDown && state.timeDown > state.timeUp) {
+  if (page === 'HOBBS_STOP' && !!state.timeDown) {
     return true;
   }
   if (page === 'REPORT' && isValidHobbs(state.hobbsStop)) {
