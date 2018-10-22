@@ -37,6 +37,12 @@ class CurrentTime extends Component {
 }
 
 class TimeInput extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      animating: false
+    };
+  }
   setToNow() {
     this.props.onChange(getNow());
   }
@@ -52,9 +58,9 @@ class TimeInput extends Component {
     this.props.onChange(`${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}`);
   }
   render() {
-    return this.props.value
+    return this.props.value && !this.state.animating
       ? (
-        <div className="time-input">
+        <div className={`time-input ${this.props.active ? '' : 'inactive'}`}>
           <Button onClick={() => this.modTime(60)} topLeft topRight><img src={arrowUp} alt='+ Hours' /></Button>
           <div style={{visibility: 'hidden'}}/>
           <Button onClick={() => this.modTime(1)} topLeft topRight><img src={arrowUp} alt='+ Minutes' /></Button>
@@ -67,9 +73,30 @@ class TimeInput extends Component {
         </div>
       )
       : (
-        <div className="time-now">
-          <Button topLeft topRight bottomLeft bottomRight className="time-manual" onClick={() => this.setToNow()}>Select Time</Button>
-          <Button topLeft topRight bottomLeft bottomRight className="time-continue highlight" onClick={() => { this.setToNow(); this.props.onContinue(); }}>
+        <div className={`time-now ${this.props.active ? '' : 'inactive'}`}>
+          <Button
+            topLeft
+            topRight
+            bottomLeft
+            bottomRight
+            className="time-manual"
+            onClick={() => this.setToNow()}
+          >
+            Select Time
+          </Button>
+          <Button
+            topLeft
+            topRight
+            bottomLeft
+            bottomRight
+            className="time-continue
+            highlight"
+            onClick={() => {
+              this.setState({ animating: true });
+              setTimeout(() => this.setState({animating: false}), 500);
+              this.setToNow(); this.props.onContinue();
+            }}
+          >
             Use Current Time
             <strong><CurrentTime /></strong>
           </Button>

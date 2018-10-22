@@ -41,7 +41,7 @@ class HobbsInput extends Component {
   }
   render() {
     return (
-      <div className="hobbs-input">
+      <div className={`hobbs-input ${this.props.active ? '' : 'inactive'}`}>
         <NumberInput
           topLeft
           topRight

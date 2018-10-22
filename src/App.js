@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { setHobbsStart, setHobbsStop, setTimeUp, setTimeDown, next, prev } from './actions';
 import './App.css';
@@ -20,26 +20,17 @@ const getTitle = (page) => ({
 
 
 const getIcon = (page) => ({
-  HOBBS_START: <img className='header-image motor' src={motor} alt={getTitle(page)} />,
-  HOBBS_STOP: <img className='header-image motor' src={motor} alt={getTitle(page)} />,
-  TIME_UP: <img className='header-image wheels' src={wheels} alt={getTitle(page)} />,
-  TIME_DOWN: <img className='header-image wheels' src={wheels} alt={getTitle(page)} />,
-  REPORT: <img className='header-image motor' src={motor} alt={getTitle(page)} />,
+  HOBBS_START: 'MOTOR',
+  HOBBS_STOP: 'MOTOR',
+  TIME_UP: 'WHEELS',
+  TIME_DOWN: 'WHEELS',
+  REPORT: 'MOTOR'
 }[page]);
 
 class App extends Component {
   render() {
     return (
       <div className="app">
-        <header>
-          <h3>{getTitle(this.props.page)}</h3>
-          {getIcon(this.props.page)}
-        </header>
-        {this.props.page === 'HOBBS_START' && <HobbsInput value={this.props.hobbsStart} onChange={this.props.setHobbsStart} />}
-        {this.props.page === 'TIME_UP' && <TimeInput value={this.props.timeUp} onChange={this.props.setTimeUp} onContinue={this.props.next} />}
-        {this.props.page === 'TIME_DOWN' && <TimeInput value={this.props.timeDown} onChange={this.props.setTimeDown} onContinue={this.props.next} />}
-        {this.props.page === 'HOBBS_STOP' && <HobbsInput value={this.props.hobbsStop} onChange={this.props.setHobbsStop} />}
-        {this.props.page === 'REPORT' && <Report />}
         <svg style={{position: 'fixed', top: -1000}}>
           <defs>
             <linearGradient id="button-highlight-gradient" x2="0" y2="1">
@@ -48,6 +39,18 @@ class App extends Component {
             </linearGradient>
           </defs>
         </svg>
+        <header>
+          <h3>{getTitle(this.props.page)}</h3>
+          <img className='header-image motor' src={motor} alt={getTitle(this.props.page)} style={{ visibility: getIcon(this.props.page) === 'WHEELS' && 'hidden' }}/>
+          <img className='header-image wheels' src={wheels} alt={getTitle(this.props.page)} style={{ visibility: getIcon(this.props.page) === 'MOTOR' && 'hidden' }}/>
+        </header>
+        <main>
+          <HobbsInput value={this.props.hobbsStart} onChange={this.props.setHobbsStart} active={this.props.page === 'HOBBS_START'} />
+          <TimeInput value={this.props.timeUp} onChange={this.props.setTimeUp} onContinue={this.props.next} active={this.props.page === 'TIME_UP'} />
+          <TimeInput value={this.props.timeDown} onChange={this.props.setTimeDown} onContinue={this.props.next} active={this.props.page === 'TIME_DOWN'} />
+          <HobbsInput value={this.props.hobbsStop} onChange={this.props.setHobbsStop} active={this.props.page === 'HOBBS_STOP'} />
+          <Report active={this.props.page === 'REPORT'} />
+        </main>
         <footer>
           {<Button onClick={this.props.prev} topRight disabled={!this.props.canGoToPrev} className={this.props.canGoToPrev ? 'back' : 'back disabled'}>Back</Button>}
           {<Button onClick={this.props.next} topLeft disabled={!this.props.canGoToNext} className={this.props.canGoToNext ? 'highlight' : 'disabled'}>Next</Button>}

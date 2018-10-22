@@ -7,9 +7,10 @@ const Report = ({
   timeDown,
   deltaHours,
   hobbsStart,
-  hobbsStop
+  hobbsStop,
+  active
 }) => (
-  <dl className='report'>
+  <dl className={`report ${active ? '' : 'inactive'}`}>
     <dt>Time Up</dt>
     <dd>{timeUp}</dd>
 

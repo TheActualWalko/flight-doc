@@ -3,11 +3,11 @@ import { canGoToPage, getNextPage, getPrevPage } from './pages';
 import { getDeltaHours } from './tools';
 
 const initialState = {
-  hobbsStart: '55.9',
+  hobbsStart: '',
   hobbsStop: '',
   timeUp: '',
   timeDown: '',
-  page: 'TIME_UP'
+  page: 'HOBBS_START'
 };
 
 const rootReducer = (state, {type, payload}) => {
